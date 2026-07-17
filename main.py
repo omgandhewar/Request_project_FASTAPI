@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from logger import execution
 
 
 
@@ -20,7 +21,22 @@ app.add_middleware(
 
 @app.get("/query")
 def query(name:str,age:int):
-    return{
+    
+    execution.clear()
+    
+    execution.append("routes started")
+    
+    resposnse={
         "name":name,
-        "age":age
+        "age":"age"
     }
+    
+    execution.append("Dictionary created")
+    
+    execution.append("Returning response")
+    
+    return{
+        "execution":execution,
+        "message":resposnse
+    }
+    
