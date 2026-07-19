@@ -43,4 +43,3 @@ async def log_middleware(request: Request, call_next):
     execution.append("Middleware Finished")
 
     return response
-    

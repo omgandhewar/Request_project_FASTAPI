@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from logger import execution
+from fastapi.responses import JSONResponse
 from sqlalchemy import text
 
 
@@ -7,8 +8,6 @@ from sqlalchemy import text
 def user_query(name,age,db):
     
     execution.append("service layer started")
-    
-    execution.append("Database Session Created")
     
     execution.append("Executing SQL Query")
     
@@ -21,8 +20,17 @@ def user_query(name,age,db):
     
     user=result.fetchone()
     
-    print(user)
-    print(type(user))
+    if user is None:
+        
+        execution.append("User Not Found")
+        
+        return JSONResponse(
+    status_code=404,
+    content={
+        "execution": execution,
+        "detail": "User not found"
+    }
+)
     
     execution.append("Dictionary created")
     

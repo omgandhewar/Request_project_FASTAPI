@@ -11,6 +11,8 @@ router=APIRouter()
 @router.get("/query")
 def query(name:str,age:int,db=Depends(get_db)):
     
-    execution.append("routes started")
+    execution.append("Route Function Started")
     
     return user_query(name,age,db)
+
+
